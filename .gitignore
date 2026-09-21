@@ -16,3 +16,7 @@ env/
 
 # macOS
 .DS_Store
+
+
+#only for me
+onlyforme.py
