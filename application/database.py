@@ -181,11 +181,10 @@ def fetch_full_string_by_id(row_id: int) -> str | None:
 
     try:
         cur = conn.cursor()
-        cur.execute(""" SELECT fullString
+        cur.execute(""" SELECT full_string
                         FROM error_log
                         WHERE id = ?    """, (row_id,))
-        row = cur.fetchone()    # returns a tuple
-                                # (12.02.25 14:30 ... ... BE12 "Device turned to an autonomous killing machine" ,)
+        row = cur.fetchone()    # returns a tuple, e.g. <Error ... code="BE12" info= "cm temp warning"/>,x
     finally:
         conn.close()
 

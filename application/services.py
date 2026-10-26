@@ -31,7 +31,7 @@ def import_xml_into_database(filepath: str) -> int:
     return len(converted_errors)
 
 def import_folder_into_database(folder: str) -> int:
-    total_converted_errors = 0 #how many total errors from multiple xml files have been converted from xml to dicts to tuples
+    total_amount_errors = 0 #how many total errors from multiple xml files have been converted from xml to dicts to tuples
 
     for file_name in sorted(os.listdir(folder)):
         if not file_name.lower().endswith(".xml"):
@@ -39,12 +39,12 @@ def import_folder_into_database(folder: str) -> int:
         full_file_path = os.path.join(folder, file_name)
 
         try:
-            converted_errors = import_xml_into_database(full_file_path)
-            total_converted_errors += converted_errors
+            amount_of_converted_errors: int = import_xml_into_database(full_file_path)
+            total_amount_errors += amount_of_converted_errors
         except Exception as e:
             print(f"[ERROR] Failed to parse {file_name}: {e}")
 
-    return total_converted_errors
+    return total_amount_errors
 
 def import_unfinished_xml_into_database(filepath: str) -> int:
     ensure_db()

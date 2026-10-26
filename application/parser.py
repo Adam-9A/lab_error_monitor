@@ -61,20 +61,21 @@ ModuleNodeMap = {   # Module and analyzer names have been anonymized for data pr
                     ("LEZ", 12) : "LEZ/1",  ("LEZ", 11) : "LEZ/2",  ("YSS", 28) : "YSS/2",
                     ("98k", 4)  : "M/98/1", ("87k", 8)  : "M/87/2",                         }
 
-def get_module_name(module_id: int | str | None, module_name: str | None) -> str:
+def get_module_name(module_name: str | None, node_id: int | str | None) -> str:
     module_name = (module_name or "").strip()
     try:
-        module_id = int(str(module_id).strip())
+        node_id = int(str(node_id).strip())
     except (TypeError, ValueError):
-        module_id = None
+        node_id = None
 
     if module_name == "":
-        if module_id is None:
+        if node_id is None:
             return ""
-        matches = [name for (raw_name, r_id), name in ModuleNodeMap.items() if module_id == r_id]
+        matches = [name for (raw_name, r_id), name in ModuleNodeMap.items() if node_id == r_id]
         return matches[0] if len(matches) == 1 else ""
 
-    return ModuleNodeMap.get((module_name, module_id), module_name)
+    temporary_solution = str(module_name + " " + str(node_id) )
+    return ModuleNodeMap.get( (module_name, node_id), temporary_solution )
 
 def normalize_sample_id(sid: str | None) -> str | None:
     if sid and sid.startswith("&D"):

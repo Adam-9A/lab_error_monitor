@@ -3,7 +3,7 @@ import glob
 import time
 import threading
 import tkinter as tk
-from _collections_abc import Callable
+from collections.abc import Callable
 from tkinter import filedialog, messagebox, ttk
 from services import import_xml_into_database, import_folder_into_database, import_unfinished_xml_into_database
 from database import get_values_for_filter, fetch_entries_page, fetch_filtered_page, fetch_full_string_by_id, insert_live_log_entries
@@ -265,6 +265,7 @@ class ErrorMonitor:
         self.module_box["values"] = self.module_cache # we are inserting our options directly into the widget.
 
     def configure_black_list(self) -> None:
+        # ToDo: add a button that calls this
         window = tk.Toplevel(self.root)
         window.title("Blacklist")
         window.geometry("800x400")
@@ -303,7 +304,8 @@ class ErrorMonitor:
                 self.tree.delete(row_id)
 
     def remove_error_from_blacklist(self) -> None:
-        pass # work in progress
+        #ToDo: inside "configure blacklist window", allow removing entries, refresh table.
+        pass
 
     def show_original_xml_string(self) -> None:
         selected_line_id = self.tree.selection()
@@ -438,13 +440,9 @@ class ErrorMonitor:
 
     def _ingest_live_alerts(self, entries: tuple[tuple[str | None, ...], ...]) -> None:
 
-        visualisation_entries: tuple[tuple[str | None, ...], ...] = (
-
-            ("2026-10-24", "14:30:00", "ModuleA", "E101", "Connection failed"),
-
-            ("2026-10-24", "14:31:00", "ModuleB", "E205", None),
-
-            ("2026-10-24", "14:32:00", "ModuleC", "E301", "Timeout"),           )
+        #visualization_entries = (   ("2026-10-24", "14:30:00", "ModuleA", "E101", "Connection failed"),
+         #                           ("2026-10-24", "14:31:00", "ModuleB", "E205", None),
+          #                          ("2026-10-24", "14:32:00", "ModuleC", "E301", "Timeout"),  )
 
 
         for entry in entries:
